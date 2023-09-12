@@ -34,3 +34,10 @@ test('Body contains night entry', async ({ page }) => {
   await page.goto('/');
   expect(await page.innerText('body')).toContain('Night:');
 });
+
+
+
+test('Footer contains repo address', async ({ page }) => {
+  await page.goto('/');
+  expect(await page.innerText('footer')).toContain('https://github.com/freddyhm/myrepostats');
+});
