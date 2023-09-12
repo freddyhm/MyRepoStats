@@ -29,3 +29,8 @@ test('Body contains evening entry', async ({ page }) => {
   await page.goto('/');
   expect(await page.innerText('body')).toContain('Evening:');
 });
+
+test('Body contains night entry', async ({ page }) => {
+  await page.goto('/');
+  expect(await page.innerText('body')).toContain('Night:');
+});
