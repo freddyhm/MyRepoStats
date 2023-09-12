@@ -19,3 +19,13 @@ test('Body contains morning entry', async ({ page }) => {
   await page.goto('/');
   expect(await page.innerText('body')).toContain('Morning:');
 });
+
+test('Body contains afternoon entry', async ({ page }) => {
+  await page.goto('/');
+  expect(await page.innerText('body')).toContain('Afternoon:');
+});
+
+test('Body contains evening entry', async ({ page }) => {
+  await page.goto('/');
+  expect(await page.innerText('body')).toContain('Evening:');
+});
