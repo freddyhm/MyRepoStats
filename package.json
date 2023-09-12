@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/freddyhm/MyRepoStats/issues"
   },
-  "homepage": "https://github.com/freddyhm/MyRepoStats#readme"
+  "homepage": "https://github.com/freddyhm/MyRepoStats#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.37.1"
+  }
 }
