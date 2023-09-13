@@ -20,6 +20,26 @@ async function fetchGitHubData(){
     }
 }
 
+function getPartOfDay(hour){
+
+    const isMorning = hour >= 0 && hour <= 12;
+    const isAfternoon = hour >= 13 && hour <= 17;
+    const isEvening = hour >= 18 && hour <= 20;
+    const isNight = hour >= 21 && hour <= 23
+
+    if (isMorning) {
+        console.log('Morning!');
+    } else if (isAfternoon) {
+        console.log('Afternoon!');
+    } else if (isEvening) {
+        console.log('Evening!');
+    } else if (isNight) {
+        console.log('Night!');
+    } else {
+        console.log(`Error: unsupported value ${hour}`);
+    }
+}
+
 async function main() {
     try {
         let data = await fetchGitHubData()
