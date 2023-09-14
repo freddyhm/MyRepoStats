@@ -111,7 +111,10 @@ app.engine('handlebars', handlebars.engine())
 app.set("view engine", "handlebars")
 app.set('views', './views');
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+
+    const partOfDayPercentageOfCommits = await getPartOfDayPercentageOfCommits(); 
+
     res.render("home", {
         pageTitle: "MyRepoStats"
     })
