@@ -31,21 +31,22 @@ const PartOfDay = {
 
 function getPartOfDay(hour){
 
-    const isMorning = hour >= 0 && hour <= 12;
-    const isAfternoon = hour >= 13 && hour <= 17;
+    const isMorning = hour >= 0 && hour < 12;
+    const isAfternoon = hour >= 12 && hour <= 17;
     const isEvening = hour >= 18 && hour <= 20;
     const isNight = hour >= 21 && hour <= 23
 
     if (isMorning) {
-        console.log('Morning!');
+        return PartOfDay.MORNING
     } else if (isAfternoon) {
-        console.log('Afternoon!');
+        return PartOfDay.AFTERNOON
     } else if (isEvening) {
-        console.log('Evening!');
+        return PartOfDay.EVENING
     } else if (isNight) {
-        console.log('Night!');
+        return PartOfDay.NIGHT
     } else {
-        console.log(`Error: unsupported value ${hour}`);
+        console.log(`Error: unsupported value ${hour}`)
+        return PartOfDay.UNKNOWN
     }
 }
 
