@@ -20,6 +20,15 @@ async function fetchGitHubData(){
     }
 }
 
+const PartOfDay = {
+    MORNING: 'Morning',
+    AFTERNOON: 'Afternoon',
+    EVENING: 'Evening',
+    NIGHT: 'Night',
+    UNKNOWN: 'Unknown'
+}
+
+
 function getPartOfDay(hour){
 
     const isMorning = hour >= 0 && hour <= 12;
