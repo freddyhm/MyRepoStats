@@ -50,15 +50,62 @@ function getPartOfDay(hour){
     }
 }
 
-async function main() {
+async function getPartOfDayPercentageOfCommits() {
+
     try {
-        let data = await fetchGitHubData()
+        let rawData = await fetchGitHubData()
+        
+        return formatRawData(rawData); // rename
+
     } catch (error) {
         console.error('Error:', error.message)
     }
-}
 
-main()
+    function formatRawData(data) {
+
+        let commitDates = getCommitDates(data)
+        
+        let commitsGroupedByPartOfDay = groupCommitsByPartOfDay(commitDates)
+        let commitGroupedByPartOfDayCount = groupCommitsByPartOfDayCount(commitsGroupedByPartOfDay)
+        let commitsGroupedByPartOfDayPercentage = groupCommitsByPartOfDayPercentage(commitGroupedByPartOfDayCount, commitsGroupedByPartOfDay)
+        
+        return commitsGroupedByPartOfDayPercentage
+    }
+
+    function getCommitDates(data) {
+        return data.map((commit) => {
+            return commit.commit.author.date
+        })
+    }
+
+    function groupCommitsByPartOfDayPercentage(commitGroupedByPartOfDayCount, commitsGroupedByPartOfDay) {
+        let commitGroupedByPercentage = []
+
+        for (const partOfDay in commitGroupedByPartOfDayCount) {
+            commitGroupedByPercentage[partOfDay] = Math.round((commitGroupedByPartOfDayCount[partOfDay] / commitsGroupedByPartOfDay.length) * 100)
+        }
+        return commitGroupedByPercentage;
+    }
+
+    function groupCommitsByPartOfDayCount(commitsGroupedByPartOfDay) {
+        return commitsGroupedByPartOfDay.reduce((commitsByPart, partOfDay) => {
+            commitsByPart[partOfDay] = (commitsByPart[partOfDay] || 0)
+            commitsByPart[partOfDay]++
+
+            return commitsByPart
+        }, {})
+    }
+
+    function groupCommitsByPartOfDay(commitDates) {
+
+        const timeZone = 'America/New_York';
+
+        return commitDates.map((date) => {
+            let formattedHour = new Date(date).toLocaleString('en-US', { timeZone, hour: 'numeric', hour12: false })
+            return getPartOfDay(formattedHour)
+        })
+    }
+}
 
 app.engine('handlebars', handlebars.engine())
 app.set("view engine", "handlebars")
