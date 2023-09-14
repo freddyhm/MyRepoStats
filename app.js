@@ -116,7 +116,8 @@ app.get('/', async (req, res) => {
     const partOfDayPercentageOfCommits = await getPartOfDayPercentageOfCommits(); 
 
     res.render("home", {
-        pageTitle: "MyRepoStats"
+        pageTitle: "MyRepoStats",
+        partOfDayPercentageOfCommits
     })
 })
 
