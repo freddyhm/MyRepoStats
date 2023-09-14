@@ -107,6 +107,7 @@ async function getPartOfDayPercentageOfCommits() {
     }
 }
 
+
 app.engine('handlebars', handlebars.engine())
 app.set("view engine", "handlebars")
 app.set('views', './views');
