@@ -2,7 +2,7 @@
   "name": "myrepostats",
   "version": "1.0.0",
   "engines": {
-    "node": ">=20.x"
+    "node": "20.0.0"
   },
   "description": "testing purposes",
   "main": "index.js",
