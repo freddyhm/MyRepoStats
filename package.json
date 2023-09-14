@@ -5,7 +5,6 @@
     "node": "20.x"
   },
   "description": "testing purposes",
-  "main": "index.js",
   "scripts": {
     "start": "node app.js"
   },
