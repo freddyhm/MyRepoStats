@@ -8,7 +8,7 @@ const port = 3000
 async function fetchGitHubData(){
     try {
 
-      const response = await axios.get(`https://api.github.com/repos/freddyhm/MyRepoStats/commits?per_page=10`)
+      const response = await axios.get(`https://api.github.com/repos/freddyhm/MyRepoStats/commits?per_page=100`)
       
       if (response.status === 200) {
         return response.data
