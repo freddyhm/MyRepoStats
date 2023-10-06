@@ -13,10 +13,13 @@ jobs:
         with:
           node-version: 20.x
       - name: Install dependencies
+        working-directory: backend
         run: npm ci
       - name: Install Playwright Chromium
+        working-directory: backend
         run: npx playwright install chromium --with-deps
       - name: Run Playwright tests
+        working-directory: backend
         run: yarn playwright test
       - uses: actions/upload-artifact@v3
         if: always()
