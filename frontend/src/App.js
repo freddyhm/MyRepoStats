@@ -26,6 +26,8 @@ function App() {
   function formatErrorMessage(error) {
     if (error.code === 'ERR_NETWORK') {      
       return "Error: Could not connect to the service :(";
+    } else if (error.response.status === 400) {
+      return "Error:" + error.response.data.error;
     } else if (error.response.status ===  404) {
       return "Error: Could not find username or repo name in Github. Make sure repo's visibility is public and try again.";
     } else if (error.response.status ===  429) {
