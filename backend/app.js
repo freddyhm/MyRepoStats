@@ -27,7 +27,7 @@ app.get('/api/stats/username/:username/repo/:reponame', async (req, res) => {
   }
 
   const commitFetcherService = new CommitFetcherService(username, reponame, timezone);
-  const partOfDayPercentageOfCommits = await commitFetcherService.getPartOfDayPercentageOfCommits();
+  const partOfDayPercentageOfCommits = await commitFetcherService.createStatReport();
 
   res.json({
     "stat_content": partOfDayPercentageOfCommits,
