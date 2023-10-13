@@ -1,7 +1,7 @@
 
 const Validator = require("./src/utilities/validator");
 const express = require("express");
-const githubController = require("./src/githubController");
+const CommitFetcherService = require("./src/services/CommitFetcherService");
 const cors = require('cors');
 
 const app = express();
@@ -26,9 +26,8 @@ app.get('/api/stats/username/:username/repo/:reponame', async (req, res) => {
     return res.status(400).json({error: error.message})
   }
 
-  const partOfDayPercentageOfCommits = await githubController.getPartOfDayPercentageOfCommits();
-
-  console.log(partOfDayPercentageOfCommits);
+  const commitFetcherService = new CommitFetcherService(username, reponame, timezone);
+  const partOfDayPercentageOfCommits = await commitFetcherService.getPartOfDayPercentageOfCommits();
 
   res.json({
     "stat_content": partOfDayPercentageOfCommits,
