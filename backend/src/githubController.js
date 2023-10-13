@@ -17,11 +17,11 @@ async function fetchGitHubData() {
 }
 
 const PartOfDay = {
-  MORNING: "Morning",
-  AFTERNOON: "Afternoon",
-  EVENING: "Evening",
-  NIGHT: "Night",
-  UNKNOWN: "Unknown",
+  MORNING: "morning",
+  AFTERNOON: "afternoon",
+  EVENING: "evening",
+  NIGHT: "night",
+  UNKNOWN: "unknown",
 };
 
 function getPartOfDay(hour) {
@@ -76,7 +76,8 @@ async function getPartOfDayPercentageOfCommits() {
     commitGroupedByPartOfDayCount,
     commitsGroupedByPartOfDay,
   ) {
-    let commitGroupedByPercentage = [];
+    
+    let commitGroupedByPercentage = {};
 
     for (const partOfDay in commitGroupedByPartOfDayCount) {
       commitGroupedByPercentage[partOfDay] = Math.round(

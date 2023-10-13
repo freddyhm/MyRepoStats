@@ -10,15 +10,12 @@ const port = 8000;
 app.use(cors());
 
 app.get("/", async (req, res) => {
-  const partOfDayPercentageOfCommits = await githubController.getPartOfDayPercentageOfCommits();
+  
 
-  res.render("home", {
-    pageTitle: "MyRepoStats",
-    partOfDayPercentageOfCommits,
-  });
+  
 });
 
-app.get('/api/stats/username/:username/repo/:reponame', (req, res) => {
+app.get('/api/stats/username/:username/repo/:reponame', async (req, res) => {
   const username = req.params.username;
   const reponame = req.params.reponame;
   const timezone = req.query.timezone;
@@ -26,12 +23,15 @@ app.get('/api/stats/username/:username/repo/:reponame', (req, res) => {
   try {
     Validator.validateInput(username, reponame, timezone);
   } catch (error) {
-    
     return res.status(400).json({error: error.message})
   }
 
+  const partOfDayPercentageOfCommits = await githubController.getPartOfDayPercentageOfCommits();
+
+  console.log(partOfDayPercentageOfCommits);
+
   res.json({
-    "stat_content": {"morning": 44, "evening": 32, "night": 33}
+    "stat_content": partOfDayPercentageOfCommits,
   });
 })
 
