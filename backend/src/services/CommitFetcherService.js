@@ -1,4 +1,7 @@
 const axios = require("axios");
+const NotFoundError = require("../errors/api/notFoundError");
+const TooManyRequestError = require("../errors/api/tooManyRequestError");
+const InternalServerError = require("../errors/api/internalServerError");
 
 class CommitFetcherService {
   
@@ -9,11 +12,15 @@ class CommitFetcherService {
     NIGHT: "night",
     UNKNOWN: "unknown",
   };
+
+  #username;
+  #reponame;
+  #timezone;
   
   constructor(username, reponame, timezone) {
-    this.username = username;
-    this.reponame = reponame;
-    this.timezone = timezone;
+    this.#username = username;
+    this.#reponame = reponame;
+    this.#timezone = timezone;
   }
 
   async createStatReport() {
@@ -21,23 +28,27 @@ class CommitFetcherService {
       let rawData = await this.#fetchGitHubData();
       return this.#formatRawData(rawData); // rename
     } catch (error) {
-      console.error("Error:", error.message);
+      throw error;
     }
   }
 
   async #fetchGitHubData() {
     try {
       const response = await axios.get(
-        `https://api.github.com/repos/freddyhm/MyRepoStats/commits?per_page=100`,
+        `https://api.github.com/repos/${this.#username}/${this.#reponame}/commits?per_page=100`,
       );
 
       if (response.status === 200) {
         return response.data;
-      } else {  
-        throw new Error(`Request failed with status: ${response.status}`);
       }
     } catch (error) { 
-      throw error;
+      if (error.response.status == 404) {  
+        throw new NotFoundError("Username and/or repo name do not exist in Github", error.response.status);
+      } else if (error.response.status== 403) {  
+        throw new TooManyRequestError("Exceeded Github rate limit", error.response.status);
+      } else if (error.response.status >= 500) {  
+        throw new InternalServerError("Could not fetch data from Github API", error.response.status);
+      }
     }
   }
 
