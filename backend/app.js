@@ -10,12 +10,6 @@ const port = 8000;
 
 app.use(cors());
 
-app.get("/", async (req, res) => {
-  
-
-  
-});
-
 app.get('/api/stats/username/:username/repo/:reponame', async (req, res) => {
 
   const username = req.params.username;

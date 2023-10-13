@@ -72,7 +72,7 @@ class CommitFetcherService {
 }
 
 #groupCommitsByPartOfDay(commitDates) {
-  const timeZone = "America/New_York";
+  const timeZone = this.#timezone;
 
   return commitDates.map((date) => {
     let formattedHour = new Date(date).toLocaleString("en-US", {
